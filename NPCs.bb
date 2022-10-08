@@ -1679,7 +1679,7 @@ Function UpdateNPCs()
 					If ChannelPlaying(n\SoundChn) Then StopChannel(n\SoundChn)
 					If ChannelPlaying(n\SoundChn2) Then StopChannel(n\SoundChn2)
 					PositionEntity n\Collider,0,-500,0
-					PositionEntity n\obj,0,-500,0
+					ResetEntity n\Collider
 				Else
 					If n\Idle = 0.1 Then
 						If PlayerInReachableRoom() Then
