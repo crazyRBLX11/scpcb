@@ -1687,8 +1687,10 @@ Function UpdateNPCs()
 								If PlayerRoom\Adjacent[i]<>Null Then
 									For j = 0 To 3
 										If PlayerRoom\Adjacent[i]\Adjacent[j]<>Null Then
-											TeleportEntity(n\Collider,PlayerRoom\Adjacent[i]\Adjacent[j]\x,0.5,PlayerRoom\Adjacent[i]\Adjacent[j]\z,n\CollRadius,True)
-											Exit
+											If PlayerRoom\Adjacent[i]\Adjacent[j]<>PlayerRoom Then
+												TeleportEntity(n\Collider,PlayerRoom\Adjacent[i]\Adjacent[j]\x,0.5,PlayerRoom\Adjacent[i]\Adjacent[j]\z,n\CollRadius,True)
+												Exit
+											EndIf
 										EndIf
 									Next
 									Exit
