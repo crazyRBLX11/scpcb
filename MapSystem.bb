@@ -4659,7 +4659,7 @@ Function FillRoom(r.Rooms)
 								Exit
 							Case (chance<40) ;40% chance for a document
 								tempstr="Document SCP-"
-								Select Rand(1,6)
+								Select Rand(1,7)
 									Case 1
 										tempstr=tempstr+"1123"
 									Case 2
@@ -4672,7 +4672,7 @@ Function FillRoom(r.Rooms)
 										tempstr=tempstr+"079"
 									Case 6
 										tempstr=tempstr+"096"
-									Case 6
+									Case 7
 										tempstr=tempstr+"966"
 								End Select
 								tempstr2="paper"
@@ -7430,6 +7430,7 @@ Function CreateMap()
 	
 	MapRoom(ROOM2, min_pos+Floor(0.1*Float(Room2Amount[2]))) = "room2poffices"
 	SetRoom("room2cafeteria", ROOM2, min_pos+Floor(0.2*Float(Room2Amount[2])),min_pos,max_pos)
+	SetRoom("room2toilets", ROOM2, min_pos+Floor(0.25*Float(Room2Amount[2])),min_pos,max_pos)
 	SetRoom("room2sroom", ROOM2, min_pos+Floor(0.3*Float(Room2Amount[2])),min_pos,max_pos)
 	SetRoom("room2servers2", ROOM2, min_pos+Floor(0.4*Room2Amount[2]),min_pos,max_pos)	
 	SetRoom("room2offices", ROOM2, min_pos+Floor(0.45*Room2Amount[2]),min_pos,max_pos)
