@@ -5025,20 +5025,6 @@ Function DrawGUI()
 	
 	If OtherOpen<>Null Then
 		;[Block]
-		If (PlayerRoom\RoomTemplate\Name = "gatea") Then
-			HideEntity Fog
-			CameraFogRange Camera, 5,30
-			CameraFogColor (Camera,200,200,200)
-			CameraClsColor (Camera,200,200,200)					
-			CameraRange(Camera, 0.05, 30)
-		Else If (PlayerRoom\RoomTemplate\Name = "exit1") And (EntityY(Collider)>1040.0*RoomScale)
-			HideEntity Fog
-			CameraFogRange Camera, 5,45
-			CameraFogColor (Camera,200,200,200)
-			CameraClsColor (Camera,200,200,200)					
-			CameraRange(Camera, 0.05, 60)
-		EndIf
-		
 		PrevOtherOpen = OtherOpen
 		OtherSize=OtherOpen\invSlots;Int(OtherOpen\state2)
 		
@@ -5251,21 +5237,6 @@ Function DrawGUI()
 		;[End Block]
 		
 	Else If InvOpen Then
-		
-		If (PlayerRoom\RoomTemplate\Name = "gatea") Then
-			HideEntity Fog
-			CameraFogRange Camera, 5,30
-			CameraFogColor (Camera,200,200,200)
-			CameraClsColor (Camera,200,200,200)					
-			CameraRange(Camera, 0.05, 30)
-		ElseIf (PlayerRoom\RoomTemplate\Name = "exit1") And (EntityY(Collider)>1040.0*RoomScale)
-			HideEntity Fog
-			CameraFogRange Camera, 5,45
-			CameraFogColor (Camera,200,200,200)
-			CameraClsColor (Camera,200,200,200)					
-			CameraRange(Camera, 0.05, 60)
-		EndIf
-		
 		SelectedDoor = Null
 		
 		width% = 70
