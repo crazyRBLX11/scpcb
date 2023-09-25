@@ -1679,7 +1679,7 @@ Function UpdateNPCs()
 					If ChannelPlaying(n\SoundChn) Then StopChannel(n\SoundChn)
 					If ChannelPlaying(n\SoundChn2) Then StopChannel(n\SoundChn2)
 					PositionEntity n\Collider,0,-500,0
-					PositionEntity n\obj,0,-500,0
+					ResetEntity n\Collider
 				Else
 					If n\Idle = 0.1 Then
 						If PlayerInReachableRoom() Then
@@ -1687,8 +1687,10 @@ Function UpdateNPCs()
 								If PlayerRoom\Adjacent[i]<>Null Then
 									For j = 0 To 3
 										If PlayerRoom\Adjacent[i]\Adjacent[j]<>Null Then
-											TeleportEntity(n\Collider,PlayerRoom\Adjacent[i]\Adjacent[j]\x,0.5,PlayerRoom\Adjacent[i]\Adjacent[j]\z,n\CollRadius,True)
-											Exit
+											If PlayerRoom\Adjacent[i]\Adjacent[j]<>PlayerRoom Then
+												TeleportEntity(n\Collider,PlayerRoom\Adjacent[i]\Adjacent[j]\x,0.5,PlayerRoom\Adjacent[i]\Adjacent[j]\z,n\CollRadius,True)
+												Exit
+											EndIf
 										EndIf
 									Next
 									Exit
