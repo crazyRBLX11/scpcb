@@ -3258,8 +3258,9 @@ Repeat
 		EndIf
 		
 		If MsgTimer > 0 Then
+			;If temp = True -> move the message below
 			Local temp% = False
-			If (Not InvOpen%)
+			If (Not InvOpen And OtherOpen = Null) Then
 				If SelectedItem <> Null
 					If SelectedItem\itemtemplate\tempname = "paper" Or SelectedItem\itemtemplate\tempname = "oldpaper"
 						temp% = True
