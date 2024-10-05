@@ -173,9 +173,9 @@ Function InitItemTemplates()
 	it = CreateItemTemplate("Journal Page", "paper", "GFX\items\paper.x", "GFX\items\INVpaper.jpg", "GFX\items\docGonzales.jpg", 0.0025) : it\sound = 0
 	
 	
-	it = CreateItemTemplate("Log #1", "paper", "GFX\items\paper.x", "GFX\items\INVpaper.jpg", "GFX\items\f4.jpg", 0.004, "GFX\items\f4.jpg") : it\sound = 0
-	it = CreateItemTemplate("Log #2", "paper", "GFX\items\paper.x", "GFX\items\INVpaper.jpg", "GFX\items\f5.jpg", 0.004, "GFX\items\f4.jpg") : it\sound = 0
-	it = CreateItemTemplate("Log #3", "paper", "GFX\items\paper.x", "GFX\items\INVpaper.jpg", "GFX\items\f6.jpg", 0.004, "GFX\items\f4.jpg") : it\sound = 0
+	it = CreateItemTemplate("Log #1", "paper", "GFX\items\paper.x", "GFX\items\INVpaper.jpg", "GFX\items\f4.jpg", 0.0017, "GFX\items\f4.jpg") : it\sound = 0
+	it = CreateItemTemplate("Log #2", "paper", "GFX\items\paper.x", "GFX\items\INVpaper.jpg", "GFX\items\f5.jpg", 0.0017, "GFX\items\f4.jpg") : it\sound = 0
+	it = CreateItemTemplate("Log #3", "paper", "GFX\items\paper.x", "GFX\items\INVpaper.jpg", "GFX\items\f6.jpg", 0.0017, "GFX\items\f4.jpg") : it\sound = 0
 	
 	it = CreateItemTemplate("Strange Note", "paper", "GFX\items\paper.x", "GFX\items\INVnote.jpg", "GFX\items\docStrange.jpg", 0.0025, "GFX\items\notetexture.jpg") : it\sound = 0
 	
@@ -378,6 +378,7 @@ Function CreateItem.Items(name$, tempname$, x#, y#, z#, r%=0,g%=0,b%=0,a#=1.0,in
 				i\name = it\name
 				ShowEntity i\collider
 				ShowEntity i\model
+				Exit
 			EndIf
 		EndIf
 	Next 
@@ -393,6 +394,8 @@ Function CreateItem.Items(name$, tempname$, x#, y#, z#, r%=0,g%=0,b%=0,a#=1.0,in
 	i\DropSpeed = 0.0
 	
 	If tempname = "cup" Then
+		i\state = 1.0
+		
 		i\r=r
 		i\g=g
 		i\b=b
@@ -618,7 +621,6 @@ Function PickItem(item.Items)
 					Case "1123"
 						If Not (Wearing714 = 1) Then
 							If PlayerRoom\RoomTemplate\Name <> "room1123" Then
-								ShowEntity Light
 								LightFlash = 7
 								PlaySound_Strict(LoadTempSound("SFX\SCP\1123\Touch.ogg"))		
 								DeathMSG = "Subject D-9341 was shot dead after attempting to attack a member of Nine-Tailed Fox. Surveillance tapes show that the subject had been "
@@ -630,7 +632,6 @@ Function PickItem(item.Items)
 							For e.Events = Each Events
 								If e\eventname = "room1123" Then 
 									If e\eventstate = 0 Then
-										ShowEntity Light
 										LightFlash = 3
 										PlaySound_Strict(LoadTempSound("SFX\SCP\1123\Touch.ogg"))
 									EndIf
@@ -643,7 +644,6 @@ Function PickItem(item.Items)
 						
 						Return
 					Case "killbat"
-						ShowEntity Light
 						LightFlash = 1.0
 						PlaySound_Strict(IntroSFX(11))
 						DeathMSG = "Subject D-9341 found dead inside SCP-914's output booth next to what appears to be an ordinary nine-volt battery. The subject is covered in severe "
@@ -762,7 +762,10 @@ Function DropItem(item.Items,playdropsound%=True)
 	
 	item\Picked = False
 	For z% = 0 To MaxItemAmount - 1
-		If Inventory(z) = item Then Inventory(z) = Null
+		If Inventory(z) = item Then
+			Inventory(z) = Null
+			Exit
+		EndIf
 	Next
 	Select item\itemtemplate\tempname
 		Case "gasmask", "supergasmask", "gasmask3"
@@ -794,7 +797,7 @@ Function Update294()
 	CatchErrors("Uncaught (Update294)")
 	
 	If CameraShakeTimer > 0 Then
-		CameraShakeTimer = CameraShakeTimer - (FPSfactor/70)
+		CameraShakeTimer = Max(CameraShakeTimer - (FPSfactor/70), 0)
 		CameraShake = 2
 	EndIf
 	
